@@ -85,7 +85,7 @@
                 <div class="modal-body">请前往登录，并查看自己的邮箱进行激活（可能在垃圾邮件中）</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary"
-{{--                            onclick="window.location.href='{{WebUrl::LOGIN}}'" --}}
+                            onclick="window.location.href='{{WebUrl::LOGIN}}'"
                             data-bs-dismiss="modal">确认</button>
                 </div>
             </div>

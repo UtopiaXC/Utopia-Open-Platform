@@ -16,14 +16,14 @@ class CreateUsersProfile extends Migration
         Schema::create('users_profile', function (Blueprint $table) {
             $table->uuid('id');
             $table->string('user_id');
-            $table->string('user_nickname');
-            $table->string('user_avatar');
-            $table->string('user_sex');
-            $table->date('user_birthday');
-            $table->string('user_job');
-            $table->string('user_city');
-            $table->string('user_main_page');
-            $table->string('user_github');
+            $table->string('user_nickname')->nullable();;
+            $table->string('user_avatar')->nullable();;
+            $table->string('user_sex')->nullable();;
+            $table->date('user_birthday')->nullable();;
+            $table->string('user_job')->nullable();;
+            $table->string('user_city')->nullable();;
+            $table->string('user_main_page')->nullable();;
+            $table->string('user_github')->nullable();;
             $table->timestamps();
         });
     }

@@ -23,3 +23,16 @@ class Middleware
 {
     const AUTH_MIDDLEWARE = 'AuthMiddleWare';
 }
+
+class UserTypeEnum{
+    const ADMIN="01";
+    const NORMAL="02";
+    const VIP="03";
+}
+
+class UserStatusEnum{
+    const NOT_VERITY="01";
+    const NORMAL="02";
+    const BANNED="03";
+    const BANNED_FOREVER="04";
+}
