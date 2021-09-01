@@ -199,7 +199,7 @@
                 data: {
                     "email": email,
                     "user_name": user_name,
-                    "passeord": password,
+                    "password": password,
                     "captcha": captcha
                 },
                 success: function (result) {

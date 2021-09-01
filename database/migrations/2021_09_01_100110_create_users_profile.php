@@ -26,6 +26,7 @@ class CreateUsersProfile extends Migration
             $table->string('user_github')->nullable();;
             $table->timestamps();
         });
+
     }
 
     /**

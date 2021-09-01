@@ -15,17 +15,17 @@ class R extends BaseController
     static public function ok($data = [])
     {
         return response()->json([
-            'code' => 200,
-            'message' => "success",
+            'code' => HTTP_CODE::SUCCESS,
+            'message' => trans('http_code.code')[HTTP_CODE::SUCCESS],
             'data' => $data,
         ]);
     }
 
-    static public function error($code,$message, $data = [])
+    static public function error($code, $data = [])
     {
         return response()->json([
             'code' => $code,
-            'message' => $message,
+            'message' => trans('http_code.code')[(int)$code],
             'data' => $data,
         ]);
     }

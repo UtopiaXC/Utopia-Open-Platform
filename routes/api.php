@@ -16,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post(ApiUrl::USER.ApiUrl::REGISTER, [UserController::class,"register"]);
 Route::get(ApiUrl::CAPTCHA,[CaptchaController::class,"getCaptcha"]);
+Route::post(ApiUrl::USER.ApiUrl::REGISTER, [UserController::class,"register"]);
+Route::post(ApiUrl::USER.ApiUrl::LOGIN,[UserController::class,"login"]);

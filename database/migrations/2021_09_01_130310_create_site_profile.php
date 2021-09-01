@@ -15,7 +15,7 @@ class CreateSiteProfile extends Migration
     {
         Schema::create('site_profile', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('profile_type');
+            $table->string('profile_type')->unique();
             $table->string('profile_description');
             $table->string('profile_content');
             $table->timestamps();
