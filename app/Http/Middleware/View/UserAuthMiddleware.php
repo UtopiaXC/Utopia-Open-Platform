@@ -23,9 +23,14 @@ class UserAuthMiddleware
         if (!$token) {
             $request->attributes->add([HeaderKey::LOGIN_STATUS => false]);
         }
-        try {
-            $user = json_decode(Redis::get(\RedisCacheKey::USER_TOKEN . $token), true);
-        } catch (ConnectionException $e) {
+
+        if (env(\EnvKey::REDIS_USE, false) == true) {
+            try {
+                $user = json_decode(Redis::get(\RedisCacheKey::USER_TOKEN . $token), true);
+            } catch (ConnectionException $e) {
+                $user = json_decode(\Cache::get(\RedisCacheKey::USER_TOKEN . $token), true);
+            }
+        }else{
             $user = json_decode(\Cache::get(\RedisCacheKey::USER_TOKEN . $token), true);
         }
         if (!$user)

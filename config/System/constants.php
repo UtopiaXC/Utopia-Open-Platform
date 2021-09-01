@@ -71,3 +71,7 @@ class DefaultSiteProfile
     const SITE_URL = 'http://localhost';
     const WEB_FOOTER='Copyright ©2021 <a target="_blank" href="https://www.utopiaxc.cn/">UtopiaXC</a> All Rights Reserved | Powered By <a href="https://github.com/UtopiaXC/Utopia-Open-Platform" target="_blank">Utopia Open Platform</a>';
 }
+
+class EnvKey{
+    const REDIS_USE="REDIS_USE";
+}

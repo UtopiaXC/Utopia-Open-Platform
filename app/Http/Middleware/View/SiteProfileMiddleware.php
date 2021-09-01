@@ -24,9 +24,13 @@ class SiteProfileMiddleware
     {
 
         //通过Redis获取网站配置信息，如果没有则存入Redis
-        try {
-            $site_profile = json_decode(Redis::get(RedisCacheKey::SITE_PROFILE), true);
-        } catch (ConnectionException $e) {
+        if (env(\EnvKey::REDIS_USE, false) == true) {
+            try {
+                $site_profile = json_decode(Redis::get(RedisCacheKey::SITE_PROFILE), true);
+            } catch (ConnectionException $e) {
+                $site_profile = json_decode(Cache::get(RedisCacheKey::SITE_PROFILE), true);
+            }
+        }else{
             $site_profile = json_decode(Cache::get(RedisCacheKey::SITE_PROFILE), true);
         }
         if (!$site_profile) {
