@@ -10,7 +10,6 @@
     <meta name="author" content="@yield('author')">
     @include('style.style')
 </head>
-
 @yield('body')
 @include('script.scripts')
 @yield('script')
