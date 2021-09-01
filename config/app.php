@@ -229,6 +229,7 @@ return [
         'Uuid' => Webpatser\Uuid\Uuid::class,
         Middleware::AUTH_MIDDLEWARE=>UserAuthMiddleware::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        Middleware::SITE_PROFILE_MIDDLEWARE=>\App\Http\Middleware\View\SiteProfileMiddleware::class,
     ],
 
 ];

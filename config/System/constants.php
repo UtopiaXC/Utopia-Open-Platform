@@ -21,7 +21,8 @@ class ApiUrl
 
 class Middleware
 {
-    const AUTH_MIDDLEWARE = 'AuthMiddleWare';
+    const AUTH_MIDDLEWARE = 'AuthMiddleware';
+    const SITE_PROFILE_MIDDLEWARE='SiteProfileMiddleware';
 }
 
 class UserTypeEnum
@@ -41,7 +42,7 @@ class UserStatusEnum
 
 class RedisCacheKey
 {
-    const SITE_PROFILE = "site_profile:";
+    const SITE_PROFILE = "site_profile";
     const USER_TOKEN = "user_token:";
 }
 
@@ -54,6 +55,7 @@ class HeaderKey
 {
     const LOGIN_STATUS = "login_status";
     const USER_INFO="user_info";
+    const SITE_PROFILE="site_profile";
 }
 
 class SiteProfileTypeEnum

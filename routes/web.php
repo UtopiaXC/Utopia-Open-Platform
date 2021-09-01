@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix'=>'/','middleware'=>Middleware::AUTH_MIDDLEWARE],function (){
+Route::group(['prefix'=>'/','middleware'=>[Middleware::SITE_PROFILE_MIDDLEWARE,Middleware::AUTH_MIDDLEWARE]],function (){
     Route::get('/', function () {
         return view('index');
     });

@@ -1,32 +1,7 @@
-{{--@php--}}
+@php
+$site_profile=app('request')->get(HeaderKey::SITE_PROFILE);
 
-{{--    use App\Models\System\SiteProfile;--}}
-{{--    use Illuminate\Support\Facades\Redis;--}}
-
-{{--    //通过Redis获取网站配置信息，如果没有则存入Redis--}}
-{{--    $site_profile=json_decode(Redis::get(RedisKey::SITE_PROFILE),true);--}}
-{{--    if($site_profile==null){--}}
-{{--        $site_profile=SiteProfile::all();--}}
-{{--        Redis::set(RedisKey::SITE_PROFILE,$site_profile);--}}
-{{--    }--}}
-{{--    $profiles=[];--}}
-{{--    foreach($site_profile as $profile){--}}
-{{--        $profiles+=[$profile['type']=>$profile['content']];--}}
-{{--    }--}}
-
-{{--    //侧边栏渲染--}}
-{{--    $side_slider='';--}}
-{{--    if (app('request')->get("user_login")==UserLoginEnum::LOGIN){--}}
-{{--        $side_slider='<a href='.WebUrls::USER_CENTER.' class="mdui-list-item mdui-ripple ">'.trans("app.user_center").'</a>';--}}
-{{--        $side_slider.='<a href='.WebUrls::USER_CENTER.' class="mdui-list-item mdui-ripple ">'.trans("app.account").'</a>';--}}
-{{--        $side_slider.='<a href="javascript:logout();" class="mdui-list-item mdui-ripple ">'.trans("app.logout").'</a>';--}}
-{{--    }else{--}}
-{{--       $side_slider='<a href='.WebUrls::LOGIN.' class="mdui-list-item mdui-ripple ">'.trans("app.login").'</a>';--}}
-{{--       $side_slider.='<a href='.WebUrls::REGISTER.' class="mdui-list-item mdui-ripple ">'.trans("app.register").'</a>';--}}
-{{--       $side_slider.='<a href='.WebUrls::FIND_PASSWORD.' class="mdui-list-item mdui-ripple ">'.trans("app.find_password").'</a>';--}}
-{{--    }--}}
-
-{{--@endphp--}}
+@endphp
 
 
 
