@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix'=>'/','middleware'=>[Middleware::SITE_PROFILE_MIDDLEWARE,Middleware::AUTH_MIDDLEWARE]],function (){
+Route::group(['prefix' => '/', 'middleware' => [Middleware::SITE_PROFILE_MIDDLEWARE, Middleware::AUTH_MIDDLEWARE]], function () {
     Route::get('/', function () {
         return view('index');
     });
@@ -22,5 +22,8 @@ Route::group(['prefix'=>'/','middleware'=>[Middleware::SITE_PROFILE_MIDDLEWARE,M
     });
     Route::get("/register", function () {
         return view('register');
+    });
+    Route::get("/register_verify", function () {
+        return view('email.register_verify');
     });
 });

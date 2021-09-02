@@ -3,23 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Utils\R;
+use App\Http\Utils\RedisAndCache;
 use App\Models\Users\User;
 use App\Models\Users\UserProfile;
 use Exception;
 use HTTP_CODE;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
-use Predis\Connection\ConnectionException;
 use RedisCacheKey;
 use Webpatser\Uuid\Uuid;
 
-class UserController extends Controller
-{
-    function register(Request $request)
-    {
+class UserController extends Controller {
+    function register(Request $request) {
         if (!CaptchaController::check_captcha($request->get("captcha"), $request->cookie(app()->getNamespace() . "session"))) {
             return R::error(HTTP_CODE::UNAUTHORIZED_CAPTCHA);
         }
@@ -58,8 +54,7 @@ class UserController extends Controller
         return R::ok();
     }
 
-    function login(Request $request)
-    {
+    function login(Request $request) {
         if (!CaptchaController::check_captcha($request->get("captcha"), $request->cookie(app()->getNamespace() . "session"))) {
             return R::error(HTTP_CODE::UNAUTHORIZED_CAPTCHA);
         }
@@ -81,13 +76,7 @@ class UserController extends Controller
         $token = md5($user[0]->id . md5(microtime(true)));
         $cookie = Cookie::make(\CookieKey::USER_TOKEN, $token, 60 * 24 * 30);
         $expiredMinutes = 60 * 24 * 30;
-        $expiredAt = now()->addMinute($expiredMinutes);
-        try {
-            Redis::setex(RedisCacheKey::USER_TOKEN . $token, $expiredMinutes * 60, $user[0]);
-        } catch (ConnectionException $e) {
-            Cache::put(RedisCacheKey::USER_TOKEN . $token, $user[0], $expiredAt);
-            return R::ok()->withCookie($cookie);
-        }
+        RedisAndCache::setWithExpire(RedisCacheKey::USER_TOKEN . $token, $user[0], $expiredMinutes);
         return R::ok()->withCookie($cookie);
     }
 }

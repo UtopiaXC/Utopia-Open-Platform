@@ -7,20 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class VerityLinkMail extends Mailable
-{
+class VerityLinkMail extends Mailable {
     use Queueable, SerializesModels;
 
     protected $link;
+    protected $user;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($link)
-    {
+    public function __construct($link, $user) {
         //
-        $this->$link=$link;
+        $this->$user = $user;
+        $this->$link = $link;
     }
 
     /**
@@ -28,8 +29,10 @@ class VerityLinkMail extends Mailable
      *
      * @return $this
      */
-    public function build()
-    {
-        return $this->view('email.verify_link');
+    public function build() {
+        return $this->view('email.register_verify_link')->with([
+            "link" => $this->link,
+            "user" => $this->user,
+        ]);
     }
 }

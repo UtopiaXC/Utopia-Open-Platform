@@ -2,13 +2,11 @@
 
 namespace App\Http\Middleware\View;
 
+use App\Http\Utils\RedisAndCache;
 use App\Models\System\SiteProfile;
-use Cache;
 use Closure;
 use HeaderKey;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
-use Predis\Connection\ConnectionException;
 use RedisCacheKey;
 
 class SiteProfileMiddleware
@@ -23,23 +21,10 @@ class SiteProfileMiddleware
     public function handle(Request $request, Closure $next)
     {
 
-        //通过Redis获取网站配置信息，如果没有则存入Redis
-        if (env(\EnvKey::REDIS_USE, false) == true) {
-            try {
-                $site_profile = json_decode(Redis::get(RedisCacheKey::SITE_PROFILE), true);
-            } catch (ConnectionException $e) {
-                $site_profile = json_decode(Cache::get(RedisCacheKey::SITE_PROFILE), true);
-            }
-        }else{
-            $site_profile = json_decode(Cache::get(RedisCacheKey::SITE_PROFILE), true);
-        }
+        $site_profile=RedisAndCache::getWithJson(RedisCacheKey::SITE_PROFILE);
         if (!$site_profile) {
             $site_profile = SiteProfile::all();
-            try {
-                Redis::set(RedisCacheKey::SITE_PROFILE, $site_profile);
-            } catch (ConnectionException $e) {
-                Cache::put(RedisCacheKey::SITE_PROFILE, $site_profile);
-            }
+            RedisAndCache::set(RedisCacheKey::SITE_PROFILE,$site_profile);
         }
         $profiles = [];
         foreach ($site_profile as $profile) {

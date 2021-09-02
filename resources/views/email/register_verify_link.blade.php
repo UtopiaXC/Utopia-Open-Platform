@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
 <head>
     <meta charset="UTF-8">
     <title>CodePen - Material VCard</title>
@@ -112,7 +112,7 @@
             height: 100%;
         }
         .cards .card-content .col {
-            width: 50%;
+            width: 70%;
             height: 100%;
             display: table-cell;
             transition: 0.3s ease 0.3s;
@@ -255,15 +255,15 @@
 <body>
 <div class="cards">
 
-    <div class="contact">Utopia Open Platform</div>
+    <div class="contact" onclick="window.open('{{env('APP_URL','https://open.utopiaxc.cn/')}}')">Utopia Open Platform</div>
 
-    <div class="card active" id="overview">
+    <div class="card active">
         <div class="card-content">
             <div class="row">
                 <div class="left col">
-                    <h2>Personal <strong>Social Card</strong></h2>
+                    <h2>欢迎注册<br>{{env('APP_SHOW_NAME','Utopia Open Platform')}}</h2>
 
-                    <p>Click one of the social icons below to switch between card or click Contact Me link to show the contact form card. <br /><em>Make sure you're running this experiment in the latest Chrome browser.</em></p>
+                    <p>亲爱的 {{$user}}<br>您已成功注册{{env('APP_SHOW_NAME','Utopia Open Platform')}}的账户，请点击<a target="_blank" href="{{$link}}">验证链接</a>来激活您的账户功能。验证有效期十五分钟。 <br/><em>如果您点击链接后未跳转，请将以下链接复制到浏览器访问：<br>{{$link}}</em></p>
 
                 </div>
                 <div class="right col">

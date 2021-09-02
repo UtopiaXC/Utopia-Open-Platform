@@ -2,14 +2,14 @@
 
 namespace App\Http\Middleware\View;
 
+use App\Http\Utils\RedisAndCache;
 use Closure;
+use CookieKey;
 use HeaderKey;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
-use Predis\Connection\ConnectionException;
+use RedisCacheKey;
 
-class UserAuthMiddleware
-{
+class UserAuthMiddleware {
     /**
      * Handle an incoming request.
      *
@@ -17,26 +17,16 @@ class UserAuthMiddleware
      * @param \Closure $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
-    {
-        $token = $request->cookie(\CookieKey::USER_TOKEN);
+    public function handle(Request $request, Closure $next) {
+        $token = $request->cookie(CookieKey::USER_TOKEN);
         if (!$token) {
             $request->attributes->add([HeaderKey::LOGIN_STATUS => false]);
         }
-
-        if (env(\EnvKey::REDIS_USE, false) == true) {
-            try {
-                $user = json_decode(Redis::get(\RedisCacheKey::USER_TOKEN . $token), true);
-            } catch (ConnectionException $e) {
-                $user = json_decode(\Cache::get(\RedisCacheKey::USER_TOKEN . $token), true);
-            }
-        }else{
-            $user = json_decode(\Cache::get(\RedisCacheKey::USER_TOKEN . $token), true);
-        }
+        $user = RedisAndCache::get(RedisCacheKey::USER_TOKEN . $token);
         if (!$user)
             $request->attributes->add([HeaderKey::LOGIN_STATUS => false]);
         else
-            $request->attributes->add([HeaderKey::LOGIN_STATUS => true, HeaderKey::USER_INFO=>$user]);
+            $request->attributes->add([HeaderKey::LOGIN_STATUS => true, HeaderKey::USER_INFO => $user]);
         return $next($request);
     }
 }
