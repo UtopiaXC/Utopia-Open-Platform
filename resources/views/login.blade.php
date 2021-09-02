@@ -1,6 +1,6 @@
 @extends('root.root')
 
-@section('title') - 登录 @endsection
+@section('title')- 登录 @endsection
 
 @section('body')
     <body class="login-page">
@@ -51,28 +51,13 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="alert" tabindex="-1" aria-labelledby="alert" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="alert_title"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="alert_content"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">确认</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="modal fade" id="captcha_dialog" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
          aria-labelledby="captcha" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="captcha_title">CAPTCHA 验证码</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                   </div>
                 <div class="modal-body" id="captcha_content">
                     <div id="captcha_process" class="progress">
                         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
@@ -172,15 +157,6 @@
                     showAlert("抱歉","服务器错误")
                 }
             })
-        }
-
-        function showAlert(title, content) {
-            let alert = $("#alert")
-            let title_elem = $("#alert_title")
-            let content_elem = $("#alert_content")
-            title_elem.html(title)
-            content_elem.html(content)
-            alert.modal('show')
         }
     </script>
 @endsection

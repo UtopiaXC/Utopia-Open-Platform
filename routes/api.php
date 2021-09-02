@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 Route::get(ApiUrl::CAPTCHA,[CaptchaController::class,"getCaptcha"]);
 Route::post(ApiUrl::USER.ApiUrl::REGISTER, [UserController::class,"register"]);
 Route::post(ApiUrl::USER.ApiUrl::LOGIN,[UserController::class,"login"]);
+Route::put(ApiUrl::USER.ApiUrl::LOGOUT,[UserController::class,"logout"]);

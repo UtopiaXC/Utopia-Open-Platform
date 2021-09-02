@@ -52,7 +52,7 @@
                         font-size: 3em;
                         line-height: 1;
                         margin: 0 0 30px;">欢迎注册<br>{{env('APP_SHOW_NAME','Utopia Open Platform')}}</h2>
-                    <p style="width: 70%">亲爱的 {{$user}}<br>您已成功注册{{env('APP_SHOW_NAME','Utopia Open Platform')}}
+                    <p style="width: 70%">亲爱的 {{$user}}<br>您已成功注册 {{env('APP_SHOW_NAME','Utopia Open Platform')}}
                         的账户，请点击<a target="_blank" href="{{$link}}">验证链接</a>来激活您的账户功能。验证有效期十五分钟。 <br/><em>如果您点击链接后未跳转，请将以下链接复制到浏览器访问：<br>{{$link}}
                         </em></p>
                 </div>

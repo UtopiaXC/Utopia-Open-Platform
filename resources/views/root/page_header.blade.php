@@ -1,8 +1,35 @@
 @php
-$site_profile=app('request')->get(HeaderKey::SITE_PROFILE);
+    $site_profile=app('request')->get(HeaderKey::SITE_PROFILE);
+    $user_logged=app('request')->get(HeaderKey::LOGIN_STATUS);
+    $user=app('request')->get(HeaderKey::USER_INFO);
+    $user_profile=app('request')->get(HeaderKey::USER_PROFILE);
+
+    if ($user_logged){
+        $user_avatar='<li class="nav-item dropdown"><a class="nav-link profile-dropdown" href="#" id="profileDropDown"
+                                                     role="button" data-bs-toggle="dropdown" aria-expanded="false"><img
+                                src="'.$user_profile["user_avatar"].'" alt=""></a>
+                        <div class="dropdown-menu dropdown-menu-end profile-drop-menu"
+                             aria-labelledby="profileDropDown">
+                            <a class="dropdown-item" href="#"><i data-feather="user"></i>用户中心</a>
+                            <a class="dropdown-item" href="#"><i data-feather="key"></i>OpenKey</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"><i data-feather="settings"></i>用户设置</a>
+                            <a class="dropdown-item" href="javascript:logout();"><i data-feather="log-out"></i>退出</a></div>
+                    </li>';
+    }else{
+         $user_avatar='<li class="nav-item dropdown"><a class="nav-link profile-dropdown" href="#" id="profileDropDown"
+                                                     role="button" data-bs-toggle="dropdown" aria-expanded="false"><img
+                                src="'.asset(DatabaseDefault::NO_LOGIN_AVATAR).'" alt=""></a>
+                        <div class="dropdown-menu dropdown-menu-end profile-drop-menu"
+                             aria-labelledby="profileDropDown">
+
+                            <a class="dropdown-item" href="'.WebUrl::LOGIN.'"><i data-feather="key"></i>登录</a>
+                            <a class="dropdown-item" href="'.WebUrl::REGISTER.'"><i data-feather="user"></i>注册</a>
+                            <a class="dropdown-item" href="'.WebUrl::FIND_PASSWORD.'"><i data-feather="key"></i>忘记密码</a>
+                    </li>';
+    }
 
 @endphp
-
 
 
 {{--顶部工具栏--}}
@@ -12,12 +39,10 @@ $site_profile=app('request')->get(HeaderKey::SITE_PROFILE);
             <ul class="navbar-nav" id="leftNav">
                 <li class="nav-item"><a class="nav-link" id="sidebar-toggle" href="#"><i
                             data-feather="menu"></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="/">主页</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">API</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">关于</a></li>
             </ul>
         </div>
-        <div><a href="/" style="font-size: larger;color: gray">UtopiaXC开放平台</a></div>
+        <div><a href="{{WebUrl::INDEX}}"
+                style="font-size: larger;color: gray">{{$site_profile[SiteProfileTypeEnum::WEB_TITLE]}}</a></div>
         <div class="" id="headerNav">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown"><a class="nav-link search-dropdown" href="#" id="searchDropDown"
@@ -26,23 +51,12 @@ $site_profile=app('request')->get(HeaderKey::SITE_PROFILE);
                     <div class="dropdown-menu dropdown-menu-end dropdown-lg search-drop-menu"
                          aria-labelledby="searchDropDown">
                         <form>
-                            <input class="form-control" type="text" placeholder="Type something.."
+                            <input class="form-control" type="text" placeholder=""
                                    aria-label="Search">
                         </form>
                     </div>
                 </li>
-                <li class="nav-item dropdown"><a class="nav-link profile-dropdown" href="#" id="profileDropDown"
-                                                 role="button" data-bs-toggle="dropdown" aria-expanded="false"><img
-                            src="{{asset('/images/avatars/profile-image.png')}}" alt=""></a>
-                    <div class="dropdown-menu dropdown-menu-end profile-drop-menu"
-                         aria-labelledby="profileDropDown">
-                        <a class="dropdown-item" href="#"><i data-feather="user"></i>用户中心</a>
-                        <a class="dropdown-item" href="#"><i data-feather="key"></i>OpenKey</a>
-                        <a class="dropdown-item" href="#"><i data-feather="sliders"></i>系统后台</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"><i data-feather="settings"></i>用户设置</a>
-                        <a class="dropdown-item" href="#"><i data-feather="log-out"></i>退出</a></div>
-                </li>
+                {!! $user_avatar !!}
             </ul>
         </div>
     </nav>
@@ -83,8 +97,8 @@ $site_profile=app('request')->get(HeaderKey::SITE_PROFILE);
             </ul>
         </li>
         <li class="sidebar-title">关于</li>
-        <li><a href=""><i data-feather="star"></i>关于本站</a></li>
-        <li><a href=""><i data-feather="shield"></i>隐私权</a></li>
-        <li><a href=""><i data-feather="git-commit"></i>开放源代码</a></li>
+        <li><a href="{{WebUrl::ABOUT}}"><i data-feather="star"></i>关于本站</a></li>
+        <li><a href="{{WebUrl::PRIVACY_POLICY}}"><i data-feather="shield"></i>隐私权</a></li>
+        <li><a href="{{WebUrl::OPEN_SOURCE}}"><i data-feather="git-commit"></i>开放源代码</a></li>
     </ul>
 </div>

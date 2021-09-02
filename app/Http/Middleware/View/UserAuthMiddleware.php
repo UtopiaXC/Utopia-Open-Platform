@@ -18,15 +18,16 @@ class UserAuthMiddleware {
      * @return mixed
      */
     public function handle(Request $request, Closure $next) {
-        $token = $request->cookie(CookieKey::USER_TOKEN);
+        $token = $request->cookie(env("APP_NAME").\CookieKey::USER_TOKEN);
         if (!$token) {
             $request->attributes->add([HeaderKey::LOGIN_STATUS => false]);
         }
-        $user = RedisAndCache::get(RedisCacheKey::USER_TOKEN . $token);
+        $user = RedisAndCache::getWithJson(RedisCacheKey::USER_TOKEN . $token);
+        $user_profile = RedisAndCache::getWithJson(RedisCacheKey::USER_PROFILE . $token);
         if (!$user)
             $request->attributes->add([HeaderKey::LOGIN_STATUS => false]);
         else
-            $request->attributes->add([HeaderKey::LOGIN_STATUS => true, HeaderKey::USER_INFO => $user]);
+            $request->attributes->add([HeaderKey::LOGIN_STATUS => true, HeaderKey::USER_INFO => $user, HeaderKey::USER_PROFILE => $user_profile]);
         return $next($request);
     }
 }

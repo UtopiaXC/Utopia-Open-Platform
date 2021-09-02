@@ -17,7 +17,7 @@ class CreateUsersProfile extends Migration
             $table->uuid('id');
             $table->string('user_id');
             $table->string('user_nickname')->nullable();;
-            $table->string('user_avatar')->nullable();;
+            $table->string('user_avatar')->nullable()->default(DatabaseDefault::USER_AVATAR);;
             $table->string('user_sex')->nullable();;
             $table->date('user_birthday')->nullable();;
             $table->string('user_job')->nullable();;

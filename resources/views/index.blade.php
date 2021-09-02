@@ -1,8 +1,8 @@
+@php
+    $site_profile=app('request')->get(HeaderKey::SITE_PROFILE);
+@endphp
 @extends('root.app')
-@section('title') - 主页 @endsection
-@section('description') UtopiaXC的个人开放平台 @endsection
-@section('keywords') UtopiaXC,开放平台,api,开源 @endsection
-@section('author') UtopiaXC @endsection
+@section('title')- 主页 @endsection
 @section("page_content")
     <div class="row">
         <div class="col-md-6 col-xl-3">

@@ -1,6 +1,6 @@
 @extends('root.root')
 
-@section('title') - 注册 @endsection
+@section('title')- 注册 @endsection
 
 @section('body')
     <body class="login-page">
@@ -98,7 +98,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="captcha_title">CAPTCHA 验证码</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="captcha_content">
                     <div id="captcha_process" class="progress">

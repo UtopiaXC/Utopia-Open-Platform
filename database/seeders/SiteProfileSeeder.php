@@ -42,7 +42,35 @@ class SiteProfileSeeder extends Seeder
             $site_profile->profile_content=\DefaultSiteProfile::WEB_FOOTER;
             $site_profile->save();
 
+            //网站描述
+            $site_profile=new SiteProfile();
+            $site_profile->id=\Uuid::generate();
+            $site_profile->profile_type=\SiteProfileTypeEnum::DESCRIPTION;
+            $site_profile->profile_description=trans('site_profile_description.'.\SiteProfileTypeEnum::DESCRIPTION);
+            $site_profile->profile_content=\DefaultSiteProfile::DESCRIPTION;
+            $site_profile->save();
+
+
+            //网站作者
+            $site_profile=new SiteProfile();
+            $site_profile->id=\Uuid::generate();
+            $site_profile->profile_type=\SiteProfileTypeEnum::AUTHOR;
+            $site_profile->profile_description=trans('site_profile_description.'.\SiteProfileTypeEnum::AUTHOR);
+            $site_profile->profile_content=\DefaultSiteProfile::AUTHOR;
+            $site_profile->save();
+
+
+            //网站关键词
+            $site_profile=new SiteProfile();
+            $site_profile->id=\Uuid::generate();
+            $site_profile->profile_type=\SiteProfileTypeEnum::KEY_WORDS;
+            $site_profile->profile_description=trans('site_profile_description.'.\SiteProfileTypeEnum::KEY_WORDS);
+            $site_profile->profile_content=\DefaultSiteProfile::KEY_WORDS;
+            $site_profile->save();
+
+
         }catch (\Exception $e){
+            echo $e;
             DB::rollBack();
         }
         DB::commit();

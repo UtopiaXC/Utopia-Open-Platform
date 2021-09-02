@@ -14,16 +14,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => '/', 'middleware' => [Middleware::SITE_PROFILE_MIDDLEWARE, Middleware::AUTH_MIDDLEWARE]], function () {
-    Route::get('/', function () {
+    Route::get(WebUrl::INDEX, function () {
         return view('index');
     });
-    Route::get("/login", function () {
+    Route::get(WebUrl::LOGIN, function () {
         return view('login');
     });
-    Route::get("/register", function () {
+    Route::get(WebUrl::REGISTER, function () {
         return view('register');
     });
-    Route::get("/register_verify/{code}", function ($code) {
+    Route::get(WebUrl::REGISTER_VERIFY."/{code}", function ($code) {
+        request()->attributes->add(["code"=>$code]);
         return view('email.register_verify')->with("code",$code);
+    });
+    Route::get(WebUrl::ABOUT,function (){
+        return view('about');
+    });
+    Route::get(WebUrl::PRIVACY_POLICY,function (){
+        return view('privacy_policy');
+    });
+    Route::get(WebUrl::OPEN_SOURCE,function (){
+        return view('open_source');
     });
 });

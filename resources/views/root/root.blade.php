@@ -1,7 +1,10 @@
+@php
+    $site_profile=app('request')->get(HeaderKey::SITE_PROFILE);
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>UtopiaXC开放平台@yield('title')</title>
+    <title>{{$site_profile[SiteProfileTypeEnum::WEB_TITLE]}} @yield('title')</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">

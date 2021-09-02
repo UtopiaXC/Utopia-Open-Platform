@@ -54,7 +54,7 @@ class UserController extends Controller {
             DB::commit();
             $code = md5(Uuid::generate());
             $link = env("APP_URL") . \WebUrl::REGISTER_VERIFY . "/" . $code;
-            R::ok(RedisAndCache::setWithExpire(RedisCacheKey::REGISTER_VERIFY . $code, $user->id,15));
+            R::ok(RedisAndCache::setWithExpire(RedisCacheKey::REGISTER_VERIFY . $code, $user->id, 15));
             Mail::to($email)->send(new RegisterVerifyLinkMail($link, $user_name));
         } catch (Exception $e) {
             DB::rollBack();
@@ -82,10 +82,25 @@ class UserController extends Controller {
         if (!password_verify($password, $user[0]->user_password)) {
             return R::error(HTTP_CODE::REFUSED_LOGIN_WRONG, $user[0]->user_password);
         }
+        $user_profile = UserProfile::query()->where("user_id", $user[0]->id)->get()[0];
         $token = md5($user[0]->id . md5(microtime(true)));
-        $cookie = Cookie::make(\CookieKey::USER_TOKEN, $token, 60 * 24 * 30);
+        $cookie = Cookie::make(env("APP_NAME") . \CookieKey::USER_TOKEN, $token, 60 * 24 * 30);
         $expiredMinutes = 60 * 24 * 30;
         RedisAndCache::setWithExpire(RedisCacheKey::USER_TOKEN . $token, $user[0], $expiredMinutes);
+        RedisAndCache::setWithExpire(RedisCacheKey::USER_PROFILE . $token, $user_profile, $expiredMinutes);
         return R::ok()->withCookie($cookie);
+    }
+
+    function logout(Request $request) {
+        $token = $request->cookie(env("APP_NAME").\CookieKey::USER_TOKEN);
+        $cookie = Cookie::forget(env("APP_NAME") . \CookieKey::USER_TOKEN);
+        if (!$token) {
+            return R::ok()->withCookie($cookie);
+        }
+        if (RedisAndCache::forget(RedisCacheKey::USER_TOKEN . $token) && RedisAndCache::forget(RedisCacheKey::USER_PROFILE . $token,)) {
+            return R::ok()->withCookie($cookie);
+        } else {
+            return R::error(HTTP_CODE::INTERNAL_SERVER_ERROR);
+        }
     }
 }
