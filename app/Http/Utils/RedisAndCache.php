@@ -61,7 +61,6 @@ class RedisAndCache {
         return $value;
     }
 
-
     public static function getWithJson($key) {
         try {
             if (env(EnvKey::REDIS_USE, false) == true) {
@@ -77,5 +76,22 @@ class RedisAndCache {
             return null;
         }
         return $value;
+    }
+
+    public static function forget($key) {
+        try {
+            if (env(EnvKey::REDIS_USE, false) == true) {
+                try {
+                    Redis::del($key);
+                } catch (ConnectionException $e) {
+                    Cache::forget($key);
+                }
+            } else {
+                Cache::forget($key);
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
     }
 }

@@ -23,7 +23,7 @@ Route::group(['prefix' => '/', 'middleware' => [Middleware::SITE_PROFILE_MIDDLEW
     Route::get("/register", function () {
         return view('register');
     });
-    Route::get("/register_verify", function () {
-        return view('email.register_verify');
+    Route::get("/register_verify/{code}", function ($code) {
+        return view('email.register_verify')->with("code",$code);
     });
 });

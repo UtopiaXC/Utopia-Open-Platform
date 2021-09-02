@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Utils\R;
 use App\Http\Utils\RedisAndCache;
+use App\Mail\RegisterVerifyLinkMail;
 use App\Models\Users\User;
 use App\Models\Users\UserProfile;
 use Exception;
@@ -11,21 +12,25 @@ use HTTP_CODE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use Mail;
 use RedisCacheKey;
 use Webpatser\Uuid\Uuid;
 
 class UserController extends Controller {
+    /**
+     * @throws \Throwable
+     */
     function register(Request $request) {
-        if (!CaptchaController::check_captcha($request->get("captcha"), $request->cookie(app()->getNamespace() . "session"))) {
+        if (!CaptchaController::check_captcha($request)) {
             return R::error(HTTP_CODE::UNAUTHORIZED_CAPTCHA);
         }
         try {
-            if (!$request->get("email") || !$request->get("user_name") || !$request->get("password")) {
+            if (!$request->get(\FormKey::EMAIL) || !$request->get(\FormKey::EMAIL) || !$request->get(\FormKey::PASSWORD)) {
                 return R::error(HTTP_CODE::NOT_ACCEPT_PARAMS_CONTENT_WRONG);
             }
-            $email = $request->get("email");
-            $user_name = $request->get("user_name");
-            $password = password_hash($request->get("password"), PASSWORD_DEFAULT);
+            $email = $request->get(\FormKey::EMAIL);
+            $user_name = $request->get(\FormKey::USER_NAME);
+            $password = password_hash($request->get(\FormKey::PASSWORD), PASSWORD_DEFAULT);
             $user = User::query()
                 ->where("user_name", $user_name)
                 ->orWhere("user_name", $email)
@@ -47,6 +52,10 @@ class UserController extends Controller {
             $user->save();
             $user_profile->save();
             DB::commit();
+            $code = md5(Uuid::generate());
+            $link = env("APP_URL") . \WebUrl::REGISTER_VERIFY . "/" . $code;
+            R::ok(RedisAndCache::setWithExpire(RedisCacheKey::REGISTER_VERIFY . $code, $user->id,15));
+            Mail::to($email)->send(new RegisterVerifyLinkMail($link, $user_name));
         } catch (Exception $e) {
             DB::rollBack();
             return R::error(HTTP_CODE::INTERNAL_SERVER_ERROR);
@@ -55,11 +64,11 @@ class UserController extends Controller {
     }
 
     function login(Request $request) {
-        if (!CaptchaController::check_captcha($request->get("captcha"), $request->cookie(app()->getNamespace() . "session"))) {
+        if (!CaptchaController::check_captcha($request)) {
             return R::error(HTTP_CODE::UNAUTHORIZED_CAPTCHA);
         }
-        $username = $request->get("user");
-        $password = $request->get("password");
+        $username = $request->get(\FormKey::USER);
+        $password = $request->get(\FormKey::PASSWORD);
         if (!$username || !$password) {
             return R::error(HTTP_CODE::NOT_ACCEPT_PARAMS_CONTENT_WRONG);
         }

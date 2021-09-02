@@ -8,6 +8,7 @@ class WebUrl
     const FIND_PASSWORD = '/find_password';
 
     const PRIVACY_POLICY = "/privacy_policy";
+    const REGISTER_VERIFY="/register_verify";
 }
 
 class ApiUrl
@@ -44,6 +45,8 @@ class RedisCacheKey
 {
     const SITE_PROFILE = "site_profile";
     const USER_TOKEN = "user_token:";
+    const REGISTER_VERIFY="register_verify:";
+    const CAPTCHA="captcha:";
 }
 
 class CookieKey
@@ -56,6 +59,14 @@ class HeaderKey
     const LOGIN_STATUS = "login_status";
     const USER_INFO="user_info";
     const SITE_PROFILE="site_profile";
+}
+
+class FormKey{
+    const CAPTCHA="captcha";
+    const USER_NAME="user_name";
+    const EMAIL="email";
+    const PASSWORD="password";
+    const USER="user";
 }
 
 class SiteProfileTypeEnum
@@ -75,3 +86,4 @@ class DefaultSiteProfile
 class EnvKey{
     const REDIS_USE="REDIS_USE";
 }
+

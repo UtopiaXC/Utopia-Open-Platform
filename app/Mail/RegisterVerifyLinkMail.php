@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class VerityLinkMail extends Mailable {
+class RegisterVerifyLinkMail extends Mailable {
     use Queueable, SerializesModels;
 
     protected $link;
@@ -20,8 +20,8 @@ class VerityLinkMail extends Mailable {
      */
     public function __construct($link, $user) {
         //
-        $this->$user = $user;
-        $this->$link = $link;
+        $this->user = $user;
+        $this->link = $link;
     }
 
     /**
@@ -33,6 +33,6 @@ class VerityLinkMail extends Mailable {
         return $this->view('email.register_verify_link')->with([
             "link" => $this->link,
             "user" => $this->user,
-        ]);
+        ])->from(['address' => env("MAIL_FROM_ADDRESS"), 'name' => env("APP_NAME")]);
     }
 }
