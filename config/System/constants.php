@@ -10,8 +10,9 @@ class WebUrl {
     const ABOUT='/about';
     const PRIVACY_POLICY = "/privacy_policy";
     const OPEN_SOURCE='/open_source';
-
-
+    const OPEN_KEY='/open_key';
+    const PREMIUM='/premium';
+    const API_LIST='/api_list';
 }
 
 class ApiUrl {

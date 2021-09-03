@@ -69,17 +69,15 @@
         <li class="sidebar-title">主页</li>
         <li class="active-page"><a href="/"><i data-feather="home"></i>主页</a></li>
         <li class="sidebar-title">个人</li>
-        <li><a href=""><i data-feather="key"></i>OpenKey</a></li>
+        <li><a href="{{WebUrl::OPEN_KEY}}"><i data-feather="key"></i>OpenKey</a></li>
         <li><a href=""><i data-feather="pie-chart"></i>接口用量</a></li>
         <li><a href=""><i data-feather="clipboard"></i>调用历史</a></li>
-        <li><a href=""><i data-feather="coffee"></i>高级版</a></li>
+        <li><a href="{{WebUrl::PREMIUM}}"><i data-feather="coffee"></i>高级版</a></li>
         <li class="sidebar-title">开放平台</li>
         <li><a href=""><i data-feather="code"></i>API接口<i class="fas fa-chevron-right dropdown-icon"></i></a>
             <ul class="">
-                <li><a href=""><i class="far fa-circle"></i>钉钉推送</a></li>
-                <li><a href=""><i class="far fa-circle"></i>邮件推送</a></li>
-                <li><a href=""><i class="far fa-circle"></i>Telegram推送</a></li>
-                <li><a href=""><i class="far fa-circle"></i>地理信息</a></li>
+                <li><a href="{{WebUrl::API_LIST."/message_push"}}"><i class="far fa-circle"></i>推送接口</a></li>
+                <li><a href="{{WebUrl::API_LIST."/map"}}"><i class="far fa-circle"></i>地图接口</a></li>
             </ul>
         </li>
         <li><a href=""><i data-feather="book"></i>开发文档<i class="fas fa-chevron-right dropdown-icon"></i></a>

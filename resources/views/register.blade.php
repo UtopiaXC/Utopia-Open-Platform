@@ -12,6 +12,7 @@
             <div class="col-md-12 col-lg-4">
                 <div class="card login-box-container">
                     <div class="card-body">
+                        <a href="{{WebUrl::INDEX}}"><i data-feather="arrow-left"></i></a>
                         <div class="authent-text">
                             <p>请输入注册信息</p>
                         </div>

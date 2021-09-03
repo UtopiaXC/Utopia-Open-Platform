@@ -23,17 +23,26 @@ Route::group(['prefix' => '/', 'middleware' => [Middleware::SITE_PROFILE_MIDDLEW
     Route::get(WebUrl::REGISTER, function () {
         return view('register');
     });
-    Route::get(WebUrl::REGISTER_VERIFY."/{code}", function ($code) {
-        request()->attributes->add(["code"=>$code]);
-        return view('email.register_verify')->with("code",$code);
+    Route::get(WebUrl::REGISTER_VERIFY . "/{code}", function ($code) {
+        request()->attributes->add(["code" => $code]);
+        return view('email.register_verify')->with("code", $code);
     });
-    Route::get(WebUrl::ABOUT,function (){
+    Route::get(WebUrl::ABOUT, function () {
         return view('about');
     });
-    Route::get(WebUrl::PRIVACY_POLICY,function (){
+    Route::get(WebUrl::PRIVACY_POLICY, function () {
         return view('privacy_policy');
     });
-    Route::get(WebUrl::OPEN_SOURCE,function (){
+    Route::get(WebUrl::OPEN_SOURCE, function () {
         return view('open_source');
+    });
+    Route::get(WebUrl::OPEN_KEY, function () {
+        return view('open_key');
+    });
+    Route::get(WebUrl::PREMIUM, function () {
+        return view('premium');
+    });
+    Route::get(WebUrl::API_LIST . "/{group}", function ($group) {
+        return view('api_list')->with($group);
     });
 });
