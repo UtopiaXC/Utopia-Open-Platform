@@ -6,4 +6,3 @@
 <link href="{{asset('/plugins/apexcharts/apexcharts.css')}}" rel="stylesheet">
 <!-- Theme Styles -->
 <link href="{{asset('/css/main.min.css')}}" rel="stylesheet">
-<link href="{{asset('/css/custom.css')}}" rel="stylesheet">

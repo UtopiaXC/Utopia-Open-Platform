@@ -67,7 +67,7 @@
 <div class="page-sidebar">
     <ul class="list-unstyled accordion-menu">
         <li class="sidebar-title">主页</li>
-        <li class="active-page"><a href="/"><i data-feather="home"></i>主页</a></li>
+        <li><a href="/"><i data-feather="home"></i>主页</a></li>
         <li class="sidebar-title">个人</li>
         <li><a href="{{WebUrl::OPEN_KEY}}"><i data-feather="key"></i>OpenKey</a></li>
         <li><a href=""><i data-feather="pie-chart"></i>接口用量</a></li>
