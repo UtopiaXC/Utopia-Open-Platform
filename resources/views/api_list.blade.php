@@ -52,7 +52,6 @@
                                             <h4>基本信息</h4>
                                             <table>
 
-
                                             </table>
                                         </div>
                                     </div>
