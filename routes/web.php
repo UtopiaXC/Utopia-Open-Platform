@@ -45,4 +45,7 @@ Route::group(['prefix' => '/', 'middleware' => [Middleware::SITE_PROFILE_MIDDLEW
     Route::get(WebUrl::API_LIST . "/{group}", function ($group) {
         return view('api_list')->with($group);
     });
+    Route::get(WebUrl::API_DETAIL."/{api_id}",function ($api_id){
+        return view('api_detail')->with($api_id);
+    });
 });

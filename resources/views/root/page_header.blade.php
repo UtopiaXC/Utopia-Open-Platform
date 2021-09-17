@@ -76,8 +76,8 @@
         <li class="sidebar-title">开放平台</li>
         <li><a href=""><i data-feather="code"></i>API接口<i class="fas fa-chevron-right dropdown-icon"></i></a>
             <ul class="">
-                <li><a href="{{WebUrl::API_LIST."/message_push"}}"><i class="far fa-circle"></i>推送接口</a></li>
-                <li><a href="{{WebUrl::API_LIST."/map"}}"><i class="far fa-circle"></i>地图接口</a></li>
+                <li><a href="{{WebUrl::API_LIST."/utopia_mps"}}"><i class="far fa-circle"></i>推送接口</a></li>
+                <li><a href="{{WebUrl::API_LIST."/utopia_gis"}}"><i class="far fa-circle"></i>地图接口</a></li>
             </ul>
         </li>
         <li><a href=""><i data-feather="book"></i>开发文档<i class="fas fa-chevron-right dropdown-icon"></i></a>

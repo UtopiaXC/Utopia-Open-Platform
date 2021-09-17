@@ -13,6 +13,7 @@ class WebUrl {
     const OPEN_KEY='/open_key';
     const PREMIUM='/premium';
     const API_LIST='/api_list';
+    const API_DETAIL='/api_detail';
 }
 
 class ApiUrl {
